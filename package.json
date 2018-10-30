@@ -1,0 +1,25 @@
+{
+  "name": "nodejsnovember18",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "cls && node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idanGeula7/NodeJsNovember18.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/idanGeula7/NodeJsNovember18/issues"
+  },
+  "homepage": "https://github.com/idanGeula7/NodeJsNovember18#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0"
+  }
+}
