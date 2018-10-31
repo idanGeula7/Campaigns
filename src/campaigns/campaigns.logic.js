@@ -1,18 +1,36 @@
 "use strict";
 const campaignsDAL = require("./campaigns.dal");
+const Campaign = require("./campain.class");
+let campaignsArray = [];
+
+let init  = () => {
+    let campaignsFromDB = campaignsDAL.readAllCampaigns();
+    campaignsFromDB.forEach((campaignData) => {
+        campaignsArray.push(new Campaign(campaignData));
+    });
+    console.log("Campaigns are loaded");
+
+    campaignsArray[0].isUserAllowed(1703);
+  
+};
 
 let getCampaigns = (req, res) => {
-    console.log("print :)");
-    res.send("okay :)");
+    let acceptedCampaigns = [];
+
+    campaignsArray.forEach((campaign) => {
+        // check user threshold (isUserAllowed func)
+        // check general threshold 
+        // campaign.markRequest(UserId) (raises the campaign's counts)
+
+        // if okay: acceptedCampaigns.push(campaign.id);
+    });
 
 
-    // return campaigns id
+    // return campaign IDs
 };
 
 // More useful methods
 
-let readAllCampaigns = () => {
-    return campaignsDAL.readAllCampaigns();
-};
 
-module.exports = {getCampaigns, readAllCampaigns};
+
+module.exports = {getCampaigns, init};
