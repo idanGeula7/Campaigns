@@ -5,7 +5,6 @@ const express = require("express");
 const config = require("./config");
 const port = config.server.port;
 const app = express();
-let serverInstance;
 app.use(express.json());
 
 
@@ -13,23 +12,13 @@ app.use(express.json());
 app.use("/birds", campaignsRouter);
 
 
-
-
-
+// Start server
+let serverInstance = app.listen(port, () => console.log(`Server is listening on port ${port}`));
 campaignsLogic.init();
 
-serverInstance = app.listen(port, () => console.log(`Server is listening on port ${port}`));
 
 // Shuts server down when app exits
 process.on("SIGINT", function() {
     serverInstance.close();   
     console.log("Server turned off");
 });
-
-
-
-
-module.exports = {app};
-
-
-

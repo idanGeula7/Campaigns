@@ -15,11 +15,26 @@ let init  = () => {
 };
 
 let getCampaigns = (req, res) => {
+
+    let userId; // retrieve it form req;
     let acceptedCampaigns = [];
 
     campaignsArray.forEach((campaign) => {
+
         // check user threshold (isUserAllowed func)
+        if(campaign.isUserAllowed(userId) == false)
+        {
+            continue;
+        }
+        isGeneralThresholdOkay
+
         // check general threshold 
+        if(campaign.isGeneralThresholdOkay == false)
+        {
+            continue;
+        }
+
+        
         // campaign.markRequest(UserId) (raises the campaign's counts)
 
         // if okay: acceptedCampaigns.push(campaign.id);
