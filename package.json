@@ -2,9 +2,10 @@
   "name": "nodejsnovember18",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "cls && node src/app.js"
+    "start": "cls && node src/server.js",
+    "test": "node_modules/.bin/ava src/tests/*.test.js --verbose"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,13 @@
   },
   "homepage": "https://github.com/idanGeula7/NodeJsNovember18#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-validator": "^5.3.0",
+    "joi": "^14.0.4"
   },
   "devDependencies": {
-    "eslint": "^5.8.0"
+    "ava": "^0.25.0",
+    "eslint": "^5.8.0",
+    "supertest": "^3.3.0"
   }
 }

@@ -2,24 +2,20 @@
 class Campaign {
 
     constructor(campaignJson) {
-       
         this.id = campaignJson.id;
         this.name = campaignJson.name;
         this.thresholds = campaignJson.thresholds;
         this.data = campaignJson.data;
-        
         this.acceptedRequestsCount = 0;
-        this.usersCounter = new Map(); // userId -> count
-
-        // hashmap docs:
-        // https://internet-israel.com/%D7%9E%D7%93%D7%A8%D7%99%D7%9B%D7%99%D7%9D/es6/map-and-set/
+        this.usersCounter = new Map(); // key: userId -> value: accepted requests count
     }
 
-    isUserAllowed(userId) { // Is the user allowed receiving this campaign
+    // Is the user allowed receiving this campaign (according to his threshold)
+    isUserAllowed(userId) { 
 
-        // Checks whether it's the first time this user request this campaign.
+        // Checks whether it's the first time this user request this campaign
         if(this.usersCounter.has(userId) == false) {
-            // We assume there is no campaign with " max_per_user: 0".
+            // We assume there is no campaign with "max_per_user: 0", because we have already validated that in "campaigns.dal.js"
             return true; 
         }
 
@@ -30,10 +26,10 @@ class Campaign {
         } else {
             return true;
         }
-
     }
 
-    isGeneralThresholdOkay() { // gotta change this name
+    // Checks general threshold 
+    isCampaignAllowed() { 
         if(this.thresholds.hasOwnProperty("max_total")) {
             return (this.acceptedRequestsCount < this.thresholds.max_total);
         } else {
@@ -41,19 +37,15 @@ class Campaign {
         }
     }
 
-    markRequest(UserId) {
-
-        this.usersCounter.set(UserId, this.usersCounter(UserId) + 1);
-
+    raiseCampaignCounters(userId) {
+        if(this.usersCounter.has(userId) == false) {
+            this.usersCounter.set(userId, 1);
+        } else {
+            this.usersCounter.set(userId, this.usersCounter.get(userId) + 1);
+        }
+        
         this.acceptedRequestsCount++;
     }
-
 }
 
 module.exports = Campaign;
-
-
-// TODO:
-// 0) isUserAllowed - check this function.
-// 1) fill in Campaign class - properties and methods.
-// 2) create init func - loop through the database and create an array of campaigns.

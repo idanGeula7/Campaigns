@@ -1,24 +1,27 @@
 "use strict";
 const campaignsRouter = require("./campaigns/campaigns.routes");
-const campaignsLogic = require("./campaigns/campaigns.logic");
 const express = require("express");
-const config = require("./config");
-const port = config.server.port;
 const app = express();
 app.use(express.json());
+app.use("/campaigns", campaignsRouter);
+
+module.exports = app;
+
+/*
+ TODO:
+
+ * A short description of where your system might fail (Heavy load; Bad database connections; ease of adding new features; stupid users; etc.)
+  
+ * Instructions on how to build, install and run it; plus some usage examples
+ and how to test (npm test)
 
 
-// API declaration
-app.use("/birds", campaignsRouter);
+http://localhost:3000/campaigns?user_id=2786
+http://localhost:3000/campaigns?user_id=2786
+http://localhost:3000/campaigns?user_id=2786
+http://localhost:3000/campaigns?user_id=2786
+http://localhost:3000/campaigns?user_id=1337
 
+goota add a README.txt file like in blox's project.
 
-// Start server
-let serverInstance = app.listen(port, () => console.log(`Server is listening on port ${port}`));
-campaignsLogic.init();
-
-
-// Shuts server down when app exits
-process.on("SIGINT", function() {
-    serverInstance.close();   
-    console.log("Server turned off");
-});
+*/
