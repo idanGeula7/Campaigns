@@ -1,6 +1,6 @@
 "use strict";
 const campaignsDAL = require("./campaigns.dal");
-const Campaign = require("./campain.class");
+const Campaign = require("./campaigns.class");
 const validationResult = require("express-validator/check").validationResult;
 let campaignsArray = [];
 
@@ -9,7 +9,6 @@ let init  = () => {
     campaignsFromDB.forEach((campaignData) => {
         campaignsArray.push(new Campaign(campaignData));
     });
-    console.log("Campaigns had been loaded");  
 };
 
 // For debug only:

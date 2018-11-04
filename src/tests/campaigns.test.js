@@ -1,5 +1,5 @@
 const test = require("ava");
-const Campaign = require("../campaigns/campain.class");
+const Campaign = require("../campaigns/campaigns.class");
 
 const campaignData = {
     id: 100, 
