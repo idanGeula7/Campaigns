@@ -4,7 +4,7 @@ const Campaign = require("./campaigns.class");
 const validationResult = require("express-validator/check").validationResult;
 let campaignsArray = [];
 
-let init  = () => {
+let init = () => {
     let campaignsFromDB = campaignsDAL.readAllCampaigns();
     campaignsFromDB.forEach((campaignData) => {
         campaignsArray.push(new Campaign(campaignData));
@@ -18,11 +18,11 @@ let printCampaignsStatus = (req, res, next) => {
         console.log(`Campaign ${campaign.id} - ${campaign.name}`);
         console.log(`acceptedRequestsCount: ${campaign.acceptedRequestsCount}`);
 
-        if(campaign.thresholds.hasOwnProperty("max_total")) {
+        if (campaign.thresholds.hasOwnProperty("max_total")) {
             console.log(`max_total: ${campaign.thresholds.max_total}`);
         }
 
-        if(campaign.thresholds.hasOwnProperty("max_per_user")) {
+        if (campaign.thresholds.hasOwnProperty("max_per_user")) {
             console.log(`max_per_user: ${campaign.thresholds.max_per_user}`);
         }
 
@@ -37,7 +37,7 @@ let printCampaignsStatus = (req, res, next) => {
 
 let getCampaigns = (req, res) => {
 
-    let userId = req.query.user_id; 
+    let userId = req.query.user_id;
 
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
@@ -48,17 +48,21 @@ let getCampaigns = (req, res) => {
     campaignsArray.forEach((campaign) => {
 
         // Checks user threshold 
-        if(campaign.isUserAllowed(userId)) {
+        if (campaign.isUserAllowed(userId)) {
 
             // Checks general threshold 
-            if(campaign.isCampaignAllowed()) {
+            if (campaign.isCampaignAllowed()) {
                 campaign.raiseCampaignCounters(userId);
                 acceptedCampaigns.push(campaign.id);
             }
-        }      
+        }
     });
 
-    res.json(acceptedCampaigns);
+    res.status(200).json(acceptedCampaigns);
 };
 
-module.exports = {getCampaigns, init, printCampaignsStatus};
+module.exports = {
+    getCampaigns,
+    init,
+    printCampaignsStatus
+};
